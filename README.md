@@ -1,5 +1,7 @@
 # ECS manager
 
+[![PyPI version](https://badge.fury.io/py/ecs-manager.svg)](https://badge.fury.io/py/ecs-manager)
+
 Easy deploy to aws ecs cluster.
 
 ## Usage
