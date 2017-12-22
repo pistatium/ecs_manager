@@ -14,8 +14,8 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=[
-        str(i.req) for i in parse_requirements(
-            os.path.join(os.path.dirname(__file__), 'requirements.txt'), session=False) if not i.link
+        'boto3',
+        'click'
     ],
     entry_points={
         'console_scripts': [
