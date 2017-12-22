@@ -5,7 +5,7 @@ import json
 import click
 import boto3
 
-from ecs_service_manager.utils.json_util import json_dumps
+from ecs_manager.utils.json_util import json_dumps
 
 
 client = boto3.client('ecs')

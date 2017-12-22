@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from pip.req import parse_requirements
 
 setup(
-    name='ecs_service_manager',
+    name='ecs_manager',
     version='0.0.1',
     url='https://github.com/pistatium/ecs_service_manager',
     author='pistatium',
@@ -19,7 +19,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'ecs_service_manager=ecs_service_manager.cmd:main'
+            'ecs_manager=ecs_manager.cmd:main'
         ]
     },
 )
