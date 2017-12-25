@@ -7,12 +7,11 @@ from pip.req import parse_requirements
 
 setup(
     name='ecs_manager',
-    version='0.0.2',
+    version='0.1.0',
     url='https://github.com/pistatium/ecs_service_manager',
     author='pistatium',
     description='Manage ecs service',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
+    packages=find_packages(),
     install_requires=[
         'boto3',
         'click'
