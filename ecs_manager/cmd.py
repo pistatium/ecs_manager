@@ -18,7 +18,7 @@ def json_validator(context, param, value):
     if value.startswith('@'):
         path = value[1:]
         if not os.path.isfile(path):
-            raise click.BadParameter('{}: File path `{}` is not found'.format(path))
+            raise click.BadParameter('{}: File path `{}` is not found'.format(param.name, path))
         with open(path, 'r') as f:
             value = f.read()
     try:
