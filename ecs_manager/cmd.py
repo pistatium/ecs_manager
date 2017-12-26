@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import json
+import os.path
 
 import click
 import boto3
@@ -14,6 +15,12 @@ client = boto3.client('ecs')
 def json_validator(context, param, value):
     if value is None:
         raise click.BadParameter('{} definition is required'.format(param.name))
+    if value.startswith('@'):
+        path = value[1:]
+        if not os.path.isfile(path):
+            raise click.BadParameter('{}: File path `{}` is not found'.format(path))
+        with open(path, 'r') as f:
+            value = f.read()
     try:
         return json.loads(value)
     except json.decoder.JSONDecodeError:
