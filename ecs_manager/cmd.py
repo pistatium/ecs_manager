@@ -7,7 +7,7 @@ import click
 import boto3
 
 from ecs_manager.utils.json_util import json_dumps
-from ecs_manager.functions import merge_environ, check_task_status
+from ecs_manager.functions import set_variables, merge_environ, check_task_status
 
 client = boto3.client('ecs')
 
@@ -38,9 +38,14 @@ def cmd():
 @click.option('--task_container_definition', '-t', callback=json_validator)
 @click.option('--service_definition', '-s', callback=json_validator)
 @click.option('--environment', '-e', callback=json_validator, default='{}')
-def deploy_service(name, cluster, task_container_definition, service_definition, environment):
-
+@click.option('--variables', '-v', callback=json_validator, default='{}')
+def deploy_service(name, cluster, task_container_definition, service_definition, environment, variables):
+    variables.update({
+        'name': name,
+        'cluster': cluster,
+    })
     merge_environ(task_container_definition, environment)
+    set_variables(task_container_definition, variables)
 
     status = check_task_status(client, name, task_container_definition)
     

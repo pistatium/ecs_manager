@@ -1,6 +1,20 @@
 # coding: utf-8
 
-from ecs_manager.functions import merge_environ
+from ecs_manager.functions import set_variables, merge_environ
+
+
+def test_set_variables():
+    d = {
+        'int': 123,
+        'str': '{{env}}',
+        'dict': {'nested_str': '{{ env }}'}
+    }
+    variables = {'env': 'test'}
+    assert set_variables(d, variables) == {
+        'int': 123,
+        'str': 'test',
+        'dict': {'nested_str': 'test'}
+    }
 
 
 def test_merge_environ():

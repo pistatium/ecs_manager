@@ -82,3 +82,7 @@ __environment__
 
 You can also override envirnments variables in `containerDefinitions`.
 
+__variables__
+
+if you set variables on your task, use `{{ xxx }}` in task.json with option `-v {'xxx': 'value'}`
+
