@@ -11,6 +11,8 @@ def set_variables(definition, variables):
         if isinstance(obj, dict):
             for key, value in obj.items():
                 obj[key] = traverse(value)
+        if isinstance(obj, list):
+            obj = [traverse(o) for o in obj]
         return obj
     traverse(definition)
     return definition

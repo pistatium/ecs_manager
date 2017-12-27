@@ -7,13 +7,16 @@ def test_set_variables():
     d = {
         'int': 123,
         'str': '{{env}}',
-        'dict': {'nested_str': '{{ env }}'}
+        'dict': {'nested_str': '{{ env }}'},
+        'list': ['{{ env }}', ]
     }
     variables = {'env': 'test'}
-    assert set_variables(d, variables) == {
+    set_variables(d, variables)
+    assert d == {
         'int': 123,
         'str': 'test',
-        'dict': {'nested_str': 'test'}
+        'dict': {'nested_str': 'test'},
+        'list': ['test', ]
     }
 
 
