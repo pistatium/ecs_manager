@@ -4,9 +4,9 @@ import re
 
 def set_variables(definition, variables):
     def traverse(obj):
-        if isinstance(obj, str):
+        if isinstance(obj, (str, unicode)):
             for k, v in variables.items():
-                obj = re.sub(r'{{\s?' + k + r'\s?}}', v, obj)
+                obj = re.sub(ur'{{\s?' + k + ur'\s?}}', v, obj)
             return obj
         if isinstance(obj, dict):
             for key, value in obj.items():

@@ -5,18 +5,18 @@ from ecs_manager.functions import set_variables, merge_environ
 
 def test_set_variables():
     d = [{
-        'int': 123,
-        'str': '{{env}}',
-        'dict': {'nested_str': '{{ env }}'},
-        'list': ['{{ env }}', {'hoge': '{{ hoge }}'}]
+        u'int': 123,
+        u'str': u'{{env}}',
+        u'dict': {u'nested_str': u'{{ env }}'},
+        u'list': [u'{{ env }}', {u'hoge': u'{{ hoge }}'}]
     }, ]
-    variables = {'hoge': 'hogehoge', 'env': 'test'}
+    variables = {u'hoge': u'hogehoge', u'env': u'test'}
     set_variables(d, variables)
     assert d == [{
-        'int': 123,
-        'str': 'test',
-        'dict': {'nested_str': 'test'},
-        'list': ['test', {'hoge': 'hogehoge'}]
+        u'int': 123,
+        u'str': u'test',
+        u'dict': {u'nested_str': u'test'},
+        u'list': [u'test', {u'hoge': u'hogehoge'}]
     }, ]
 
 
