@@ -4,20 +4,20 @@ from ecs_manager.functions import set_variables, merge_environ
 
 
 def test_set_variables():
-    d = {
+    d = [{
         'int': 123,
         'str': '{{env}}',
         'dict': {'nested_str': '{{ env }}'},
-        'list': ['{{ env }}', ]
-    }
-    variables = {'env': 'test'}
+        'list': ['{{ env }}', {'hoge': '{{ hoge }}'}]
+    }, ]
+    variables = {'hoge': 'hogehoge', 'env': 'test'}
     set_variables(d, variables)
-    assert d == {
+    assert d == [{
         'int': 123,
         'str': 'test',
         'dict': {'nested_str': 'test'},
-        'list': ['test', ]
-    }
+        'list': ['test', {'hoge': 'hogehoge'}]
+    }, ]
 
 
 def test_merge_environ():

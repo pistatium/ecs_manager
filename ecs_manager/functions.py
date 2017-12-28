@@ -7,7 +7,7 @@ def set_variables(definition, variables):
         if isinstance(obj, str):
             for k, v in variables.items():
                 obj = re.sub(r'{{\s?' + k + r'\s?}}', v, obj)
-                return obj
+            return obj
         if isinstance(obj, dict):
             for key, value in obj.items():
                 obj[key] = traverse(value)
