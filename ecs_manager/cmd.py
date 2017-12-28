@@ -2,9 +2,11 @@
 
 import json
 import os.path
+import sys
 
 import click
 import boto3
+from botocore.exceptions import ClientError
 
 from ecs_manager.utils.json_util import json_dumps
 from ecs_manager.functions import set_variables, merge_environ, check_task_status
@@ -51,7 +53,12 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
     
     if status['changed']:
         click.echo(status)
-        res = client.register_task_definition(family=name, containerDefinitions=task_container_definition)
+        try:
+            res = client.register_task_definition(family=name, containerDefinitions=task_container_definition)
+        except ClientError:
+            click.echo(repr(sys.exc_info()[1]))
+            click.echo(task_container_definition)
+            return
         task_arn = res['taskDefinition']['taskDefinitionArn']
         click.echo(task_arn)
     else:
