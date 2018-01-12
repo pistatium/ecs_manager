@@ -6,7 +6,7 @@ def set_variables(definition, variables):
     def traverse(obj):
         if isinstance(obj, (str, unicode)):
             for k, v in variables.items():
-                obj = re.sub(ur'{{\s?' + k + ur'\s?}}', v, obj)
+                obj = re.sub(u'{{\s?' + k + u'\s?}}', v, obj)
             return obj
         if isinstance(obj, dict):
             for key, value in obj.items():
