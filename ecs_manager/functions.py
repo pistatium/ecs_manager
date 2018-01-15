@@ -1,10 +1,11 @@
 # coding: utf-8
 
 import re
+from builtins import str as text
 
 def set_variables(definition, variables):
     def traverse(obj):
-        if isinstance(obj, (str, unicode)):
+        if isinstance(obj, (str, text)):
             for k, v in variables.items():
                 obj = re.sub(u'{{\s?' + k + u'\s?}}', v, obj)
             return obj
