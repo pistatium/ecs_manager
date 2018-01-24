@@ -14,7 +14,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         'boto3',
-        'click'
+        'click',
+        'future'
     ],
     entry_points={
         'console_scripts': [
