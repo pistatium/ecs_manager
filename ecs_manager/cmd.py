@@ -48,6 +48,7 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
     })
     merge_environ(task_container_definition, environment)
     set_variables(task_container_definition, variables)
+    set_variables(service_definition, variables)
 
     status = check_task_status(client, name, task_container_definition)
     
