@@ -43,7 +43,8 @@ def cmd():
 @click.option('--service_definition', '-s', callback=json_validator)
 @click.option('--environment', '-e', callback=json_validator, default='{}')
 @click.option('--variables', '-v', callback=json_validator, default='{}')
-def deploy_service(name, cluster, task_container_definition, service_definition, environment, variables):
+@click.option('--task_definition_options', '-o', callback=json_validator, default='{}')
+def deploy_service(name, cluster, task_container_definition, service_definition, environment, variables, task_definition_options):
     variables.update({
         'name': name,
         'cluster': cluster,
@@ -57,7 +58,7 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
     if status['changed']:
         click.echo(status)
         try:
-            res = client.register_task_definition(family=name, containerDefinitions=task_container_definition)
+            res = client.register_task_definition(family=name, containerDefinitions=task_container_definition, **task_definition_options)
         except ClientError:
             click.echo(repr(sys.exc_info()[1]))
             click.echo(task_container_definition)
