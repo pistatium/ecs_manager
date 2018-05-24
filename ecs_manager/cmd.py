@@ -27,7 +27,7 @@ def json_validator(context, param, value):
             value = f.read()
     try:
         return json.loads(value)
-    except json.decoder.JSONDecodeError:
+    except ValueError:
         raise click.BadParameter('{} definition is invalid json format'.format(param.name))
 
 
