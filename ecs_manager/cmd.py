@@ -13,7 +13,7 @@ from ecs_manager.functions import set_variables, merge_environ, check_task_statu
 
 client = boto3.client('ecs')
 
-UPDATE_SERVICE_KEYS = ['cluster', 'service', 'desiredCount', 'taskDefinition', 'deploymentConfiguration', 'networkConfiguration', 'platformVersion', 'forceNewDeployment', 'healthCheckGracePeriodSeconds', 'secrets']
+UPDATE_SERVICE_KEYS = ['cluster', 'service', 'desiredCount', 'taskDefinition', 'deploymentConfiguration', 'networkConfiguration', 'platformVersion', 'forceNewDeployment', 'healthCheckGracePeriodSeconds']
 
 
 def json_validator(context, param, value):
@@ -62,7 +62,7 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
         except ClientError:
             click.echo(repr(sys.exc_info()[1]))
             click.echo(task_container_definition)
-            return
+            raise click.Abort()
         task_arn = res['taskDefinition']['taskDefinitionArn']
         click.echo(task_arn)
     else:
@@ -74,9 +74,8 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
         res = client.create_service(cluster=cluster, serviceName=name, taskDefinition=task_arn, **service_definition)
         click.echo('Created service')
         click.echo(json_dumps(res))
-        return
     service_definition = {k: v for k, v in service_definition.items() if k in UPDATE_SERVICE_KEYS}
-    res = client.update_service(cluster=cluster, service=name, taskDefinition=task_arn, forceNewDeployment=True, **service_definition)
+    res = client.update_service(cluster=cluster, service=name, taskDefinition=task_arn, **service_definition)
     click.echo('Updated service')
     click.echo(json_dumps(res))
 
