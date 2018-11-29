@@ -76,7 +76,7 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
         click.echo(json_dumps(res))
         return
     service_definition = {k: v for k, v in service_definition.items() if k in UPDATE_SERVICE_KEYS}
-    res = client.update_service(cluster=cluster, service=name, taskDefinition=task_arn, **service_definition)
+    res = client.update_service(cluster=cluster, service=name, taskDefinition=task_arn, forceNewDeployment=True, **service_definition)
     click.echo('Updated service')
     click.echo(json_dumps(res))
 
