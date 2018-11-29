@@ -7,7 +7,7 @@ from pip.req import parse_requirements
 
 setup(
     name='ecs_manager',
-    version='0.1.4.3',
+    version='0.1.4.4',
     url='https://github.com/pistatium/ecs_service_manager',
     author='pistatium',
     description='Manage ecs service',
