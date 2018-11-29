@@ -13,7 +13,7 @@ from ecs_manager.functions import set_variables, merge_environ, check_task_statu
 
 client = boto3.client('ecs')
 
-UPDATE_SERVICE_KEYS = ['cluster', 'service', 'desiredCount', 'taskDefinition', 'deploymentConfiguration', 'networkConfiguration', 'platformVersion', 'forceNewDeployment', 'healthCheckGracePeriodSeconds']
+UPDATE_SERVICE_KEYS = ['cluster', 'service', 'desiredCount', 'taskDefinition', 'deploymentConfiguration', 'networkConfiguration', 'platformVersion', 'forceNewDeployment', 'healthCheckGracePeriodSeconds', 'secrets']
 
 
 def json_validator(context, param, value):
