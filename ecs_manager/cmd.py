@@ -39,12 +39,14 @@ def cmd():
 @cmd.command()
 @click.argument('name')
 @click.option('--cluster', '-c', required=True)
+@click.option('--task_definition_only', is_flag=True)
 @click.option('--task_container_definition', '-t', callback=json_validator)
 @click.option('--service_definition', '-s', callback=json_validator)
 @click.option('--environment', '-e', callback=json_validator, default='{}')
 @click.option('--variables', '-v', callback=json_validator, default='{}')
 @click.option('--task_definition_options', '-o', callback=json_validator, default='{}')
-def deploy_service(name, cluster, task_container_definition, service_definition, environment, variables, task_definition_options):
+def deploy_service(name, cluster, task_container_definition, service_definition, environment, variables,
+                   task_definition_options, task_definition_only):
     variables.update({
         'name': name,
         'cluster': cluster,
@@ -69,15 +71,16 @@ def deploy_service(name, cluster, task_container_definition, service_definition,
         click.echo('Task definition is not changed')
         task_arn = status['arn']
 
-    res = client.describe_services(cluster=cluster, services=[name, ])
-    if not res['services']:
-        res = client.create_service(cluster=cluster, serviceName=name, taskDefinition=task_arn, **service_definition)
-        click.echo('Created service')
+    if not task_definition_only:
+        res = client.describe_services(cluster=cluster, services=[name, ])
+        if not res['services']:
+            res = client.create_service(cluster=cluster, serviceName=name, taskDefinition=task_arn, **service_definition)
+            click.echo('Created service')
+            click.echo(json_dumps(res))
+        service_definition = {k: v for k, v in service_definition.items() if k in UPDATE_SERVICE_KEYS}
+        res = client.update_service(cluster=cluster, service=name, taskDefinition=task_arn, **service_definition)
+        click.echo('Updated service')
         click.echo(json_dumps(res))
-    service_definition = {k: v for k, v in service_definition.items() if k in UPDATE_SERVICE_KEYS}
-    res = client.update_service(cluster=cluster, service=name, taskDefinition=task_arn, **service_definition)
-    click.echo('Updated service')
-    click.echo(json_dumps(res))
 
 
 def main():

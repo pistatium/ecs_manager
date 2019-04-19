@@ -86,3 +86,9 @@ __variables__
 
 if you set variables on your task, use `{{ xxx }}` in task.json with option `-v {'xxx': 'value'}`
 
+
+### task definition only mode
+You can add `--task_definition_only` option for registering task definition without updating ecs service
+```
+ecs_manager deploy-service test-service --task_definition_only -c default -t "[{\"name\":\"sleep\",\"image\":\"busybox\",\"cpu\":10,\"command\":[\"sleep\",\"360\"],\"memory\":10,\"essential\":true}]" -s '{"desiredCount": 1}'
+```
