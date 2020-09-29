@@ -8,21 +8,24 @@ AWS ECSのラッパーコマンドです.
 
 ## 使い方
 
+前提条件として AWS CLI が使えるよう環境変数がセットされている必要があります。
+
 ```
 pip3 install ecs_manager
 
 # Example
 ecs_manager deploy-service test-service -c default -t "[{\"name\":\"sleep\",\"image\":\"busybox\",\"cpu\":10,\"command\":[\"sleep\",\"360\"],\"memory\":10,\"essential\":true}]" -s '{"desiredCount": 1}'
+
+# => ECS 上にサービスが生成されます
 ```
 
 
 __NAME__
-
-The name of the service you create
+作ろうとしているECSのサービス名です。
 
 __cluster__
 
-AWS ECS Cluster name
+ECSのクラスタ名
 
 __task_container_definition__
 
