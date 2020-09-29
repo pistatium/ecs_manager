@@ -2,15 +2,16 @@
 
 [![PyPI version](https://badge.fury.io/py/ecs-manager.svg)](https://badge.fury.io/py/ecs-manager)
 
-It is a wrapper tool for using AWS ECS.
+AWS ECSのラッパーコマンドです.
 
-You can execute from task registration to service startup with a simple command.
+環境変数などを組み合わせたECSのタスクをシンプルなコマンドでデプロイできます。
 
-## Usage
+## 使い方
 
 ```
-pip install ecs_manager
+pip3 install ecs_manager
 
+# Example
 ecs_manager deploy-service test-service -c default -t "[{\"name\":\"sleep\",\"image\":\"busybox\",\"cpu\":10,\"command\":[\"sleep\",\"360\"],\"memory\":10,\"essential\":true}]" -s '{"desiredCount": 1}'
 ```
 
